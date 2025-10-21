@@ -26,7 +26,6 @@ public class ExampleCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
