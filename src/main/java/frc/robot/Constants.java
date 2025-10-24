@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -26,6 +29,13 @@ public final class Constants {
     public static final double MAX_DRIVE_SPEED = 10.0; // m/s
     public static final double MAX_TURN_SPEED = 10.0; // rad/s
     public static final double SLOWMODE_FACTOR = 0.2;
+  }
+
+  public static final class ShooterConfig {
+    public static final int MOTOR_ID = 193;
+    public static final MotorType MOTOR_TYPE = MotorType.kBrushed;
+    public static final PIDController MOTOR_CONTROLLER = new PIDController(1, 1, 1);
+    public static final double SHOOT_WAIT_TIME = 3d;
   }
 
   public static void sendNumberToElastic(String name, double num, double places) {
