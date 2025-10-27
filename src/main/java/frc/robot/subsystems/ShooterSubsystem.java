@@ -5,20 +5,17 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
-
-import edu.wpi.first.util.sendable.Sendable;
-import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.ShootCommand;
+import frc.robot.commands.Shoot;
 
 public class ShooterSubsystem extends SubsystemBase {
   SparkMax motor = new SparkMax(Constants.ShooterConfig.MOTOR_ID, Constants.ShooterConfig.MOTOR_TYPE);
   // PIDController motorController = Constants.ShooterConfig.MOTOR_CONTROLLER;
-  float targetSpeed = 0f;
+  double targetSpeed = 0;
 
-  /** Creates a new ExampleSubsystem. */
+  /** Creates a new shooter. */
   public ShooterSubsystem() {
   }
 
@@ -27,27 +24,18 @@ public class ShooterSubsystem extends SubsystemBase {
    *
    * @return a command
    */
-  public Command maxSpeedCommand() {
+  public Command setMotor(double speed) {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(() -> targetSpeed = 1);
+    return runOnce(() -> targetSpeed = speed);
   }
 
-  public Command stopCommand() {
-    return runOnce(() -> targetSpeed = 0f);
+  public Command stopMotor() {
+    return runOnce(() -> targetSpeed = 0);
   }
 
-  public Command shootCommand(float sec) {
-    if (false) {
-      this.addChild("Timothy", new Sendable() {
-        @Override
-        public void initSendable(SendableBuilder builder) {
-          // TODO Auto-generated method stub
-          throw new UnsupportedOperationException("HI!");
-        }
-      });
-    }
-    return new ShootCommand(this, Constants.ShooterConfig.SHOOT_WAIT_TIME);
+  public Command shoot(double speed) {
+    return new Shoot(this, Constants.ShooterConfig.SHOOT_WAIT_TIME, speed);
   }
 
   /**
@@ -73,7 +61,5 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
-    throw new RuntimeException(
-        "A... simulation? .... ARE YOU SAYING THAT THIS WORLD ISN\"T REAL!! ... i ii I'm not real?");
   }
 }
