@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class Shooter extends SubsystemBase {
   SparkMax motor = new SparkMax(Constants.ShooterConfig.MOTOR_ID, Constants.ShooterConfig.MOTOR_TYPE);
   // PIDController motorController = Constants.ShooterConfig.MOTOR_CONTROLLER;
   double targetSpeed = 0;
 
   /** Creates a new shooter. */
-  public ShooterSubsystem() {
+  public Shooter() {
   }
 
   /**
@@ -24,18 +24,18 @@ public class ShooterSubsystem extends SubsystemBase {
    *
    * @return a command
    */
-  public Command setMotor(double speed) {
+  public Command setMotor(double spd) {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(() -> targetSpeed = speed);
+    return runOnce(() -> targetSpeed = spd);
   }
 
   public Command stopMotor() {
     return runOnce(() -> targetSpeed = 0);
   }
 
-  public Command shoot(double speed) {
-    return new Shoot(this, Constants.ShooterConfig.SHOOT_WAIT_TIME, speed);
+  public Command shoot(double spd) {
+    return new Shoot(this, Constants.ShooterConfig.SHOOT_WAIT_TIME, spd);
   }
 
   /**

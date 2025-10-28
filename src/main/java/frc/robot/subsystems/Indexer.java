@@ -12,35 +12,35 @@ import frc.robot.Constants.CANConfig;
 import frc.robot.Constants.IndexerConfig;
 
 public class Indexer {
-    private SparkMax upperMotor;
-    private SparkMax lowerMotor;
+    private SparkMax upMotor;
+    private SparkMax lowMotor;
 
     public Indexer() {
-        upperMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
-        lowerMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
+        upMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
+        lowMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
         SparkMaxConfig indexerConfig = new SparkMaxConfig();
-        upperMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        lowerMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        upMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        lowMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    public void setIndexerOutput(double percent) {
-        if (Math.abs(percent) > 1)
+    public void setIndexerOutput(double pct) {
+        if (Math.abs(pct) > 1)
             return;
-        upperMotor.set(percent);
-        lowerMotor.set(percent);
+        upMotor.set(pct);
+        lowMotor.set(pct);
     }
 
     public double getUpperIndexerSpeed() {
-        return upperMotor.get();
+        return upMotor.get();
     }
 
     public double getLowerIndexerSpeed() {
-        return lowerMotor.get();
+        return lowMotor.get();
     }
 
-    public Command startIndexer(boolean forward) {
+    public Command startIndexer(boolean fwd) {
         return Commands
-                .runOnce(() -> setIndexerOutput(forward ? IndexerConfig.INDEXER_SPEED : -IndexerConfig.INDEXER_SPEED));
+                .runOnce(() -> setIndexerOutput(fwd ? IndexerConfig.INDEXER_SPEED : -IndexerConfig.INDEXER_SPEED));
     }
 
     public Command stopIndexer() {
