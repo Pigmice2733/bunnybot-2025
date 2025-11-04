@@ -23,31 +23,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public final class Constants {
 
-  public static final double AXIS_THRESHOLD = 0.1;
+    public static final double AXIS_THRESHOLD = 0.1;
 
-  public static final class CANConfig {
-    public static final int INDEXER_PORT = 1;
-  }
+    public static final class CANConfig {
+        public static final int INDEXER_PORT = 1;
+        public static final int INTAKE_PORT = 2;
+    }
 
-  public static final class DrivetrainConfig {
-    public static final double MAX_DRIVE_SPEED = 10.0; // m/s
-    public static final double MAX_TURN_SPEED = 10.0; // rad/s
-    public static final double SLOWMODE_FACTOR = 0.2;
-  }
+    public static final class DrivetrainConfig {
+        public static final double MAX_DRIVE_SPEED = 10.0d; // m/s
+        public static final double MAX_TURN_SPEED = 10.0d; // rad/s
+        public static final double SLOWMODE_FACTOR = 0.2d;
+    }
 
-  public static final class IndexerConfig {
-    public static final double INDEXER_SPEED = 0.25;
-  }
+    public static final class IndexerConfig {
+        public static final double INDEXER_SPEED = 0.25d;
+    }
 
-  public static final class ShooterConfig {
-    public static final int MOTOR_ID = 193;
-    public static final MotorType MOTOR_TYPE = MotorType.kBrushed;
-    public static final PIDController MOTOR_CONTROLLER = new PIDController(1, 1, 1);
-    public static final double SHOOT_WAIT_TIME = 3d;
-  }
+    public static final class IntakeConfig {
+        public static final double INTAKE_SPEED = 0.25d;
+    }
 
-  public static void sendNumberToElastic(String name, double num, double places) {
-    double newNum = Math.round(num * Math.pow(10, places)) / Math.pow(10, places);
-    SmartDashboard.putNumber(name, newNum);
-  }
+    public static final class ShooterConfig {
+        public static final int MOTOR_ID = 193;
+        public static final MotorType MOTOR_TYPE = MotorType.kBrushed;
+        public static final PIDController MOTOR_CONTROLLER = new PIDController(1, 1, 1);
+        public static final double SHOOT_WAIT_TIME = 3.0d;
+    }
+
+    public static void sendNumberToElastic(String name, double num, double places) {
+        double newNum = Math.round(num * Math.pow(10, places)) / Math.pow(10, places);
+        SmartDashboard.putNumber(name, newNum);
+    }
 }
