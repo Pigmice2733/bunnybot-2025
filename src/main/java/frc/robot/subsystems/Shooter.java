@@ -34,6 +34,10 @@ public class Shooter extends SubsystemBase {
     return runOnce(() -> targetSpeed = 0);
   }
 
+  public Command shoot() {
+    return shoot(1.0);
+  }
+
   public Command shoot(double spd) {
     return new Shoot(this, Constants.ShooterConfig.SHOOT_WAIT_TIME, spd);
   }
@@ -61,5 +65,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+    throw new RuntimeException(
+        "A... simulation? .... ARE YOU SAYING THAT THIS WORLD ISN\"T REAL!! ... i ii I'm not real?");
   }
 }
