@@ -23,7 +23,7 @@ public class Indexer {
         lowMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    public void setIndexerOutput(double pct) {
+    public void setIndexerSpeed(double pct) {
         if (Math.abs(pct) > 1)
             return;
         upMotor.set(pct);
@@ -40,10 +40,10 @@ public class Indexer {
 
     public Command startIndexer(boolean fwd) {
         return Commands
-                .runOnce(() -> setIndexerOutput(fwd ? IndexerConfig.INDEXER_SPEED : -IndexerConfig.INDEXER_SPEED));
+                .runOnce(() -> setIndexerSpeed(fwd ? IndexerConfig.INDEXER_SPEED : -IndexerConfig.INDEXER_SPEED));
     }
 
     public Command stopIndexer() {
-        return Commands.runOnce(() -> setIndexerOutput(0));
+        return Commands.runOnce(() -> setIndexerSpeed(0));
     }
 }
