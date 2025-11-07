@@ -24,10 +24,12 @@ public class RobotContainer {
         controls = new Controls(driver, operator);
     
         drivetrain = new Drivetrain();
-        // Configure the trigger bindings
         configureBindings();
     }
 
+    /**
+     * Configure XBox controller bindings
+     */
     private void configureBindings() {
         // Shoot when right trigger is pressed.
         operator.rightTrigger().onTrue(shooter.shoot());
