@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DrivetrainConfig;
 
+@SuppressWarnings("unused")
 public class Controls {
     private CommandXboxController driver, operator;
 

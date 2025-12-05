@@ -6,28 +6,30 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.Shoot;
 
+@SuppressWarnings("unused")
 public class Shooter extends SubsystemBase {
-  SparkMax motor = new SparkMax(Constants.ShooterConfig.MOTOR_ID, Constants.ShooterConfig.MOTOR_TYPE);
+  SparkMax motor;
   // PIDController motorController = Constants.ShooterConfig.MOTOR_CONTROLLER;
   double targetSpeed = 0;
 
   /** Creates a new shooter. */
   public Shooter() {
+    motor = new SparkMax(Constants.ShooterConfig.MOTOR_ID, Constants.ShooterConfig.MOTOR_TYPE);
   }
 
   /**
-   * Example command factory method.
+   * Sets the speed of the shooter motor
    *
-   * @return a command
+   * @param spd Speed value between 1 and -1
    */
   public Command setMotor(double spd) {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(() -> targetSpeed = spd);
+    return Commands.runOnce(() -> targetSpeed = Math.max(-1, Math.min(1, spd)));
   }
 
   public Command stopMotor() {
@@ -35,7 +37,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public Command shoot() {
-    return shoot(1.0);
+    return setMotor(1.0);
   }
 
   public Command shoot(double spd) {

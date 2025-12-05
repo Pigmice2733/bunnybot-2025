@@ -27,14 +27,32 @@ public class Intake {
         motor.set(Math.max(-1, Math.min(1, percent)));
     }
 
+    /**
+     * @return Speed of the intake motor
+     */
     public double getIntakeSpeed() {
         return motor.get();
     }
 
+    /**
+     * Sets the speed of the intake motor to a specified speed
+     * 
+     * @param spd Speed of the motor, between -1.0 and 1.0
+     */
+    public Command runIntake(double spd) {
+        return Commands.runOnce(() -> setIntakeSpeed(spd));
+    }
+
+    /**
+     * Sets the speed of the intake motor to the default speed
+     */
     public Command startIntake() {
         return Commands.runOnce(() -> setIntakeSpeed(IntakeConfig.INTAKE_SPEED));
     }
 
+    /**
+     * Sets the speed of the intake motor to 0
+     */
     public Command stopIntake() {
         return Commands.runOnce(() -> setIntakeSpeed(0));
     }

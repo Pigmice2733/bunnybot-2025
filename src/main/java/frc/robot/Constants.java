@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public final class Constants {
 
-    public static final double AXIS_THRESHOLD = 0.1;
+    public static final double AXIS_THRESHOLD = 0.1d;
 
     public static final class CANConfig {
         public static final int INDEXER_PORT = 1;
@@ -42,6 +42,7 @@ public final class Constants {
 
     public static final class IntakeConfig {
         public static final double INTAKE_SPEED = 0.25d;
+        public static final double OUTTAKE_SPEED = -0.25d;
     }
 
     public static final class ShooterConfig {

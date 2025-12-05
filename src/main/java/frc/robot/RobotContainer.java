@@ -4,15 +4,21 @@
 
 package frc.robot;
 
+import frc.robot.Constants.IntakeConfig;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
+@SuppressWarnings("unused")
 public class RobotContainer {
     private final Drivetrain drivetrain;
 
     private final Shooter shooter = new Shooter();
+    private final Indexer indexer = new Indexer();
+    private final Intake intake = new Intake();
 
     private final CommandXboxController driver;
     private final CommandXboxController operator;
@@ -22,7 +28,7 @@ public class RobotContainer {
         driver = new CommandXboxController(0);
         operator = new CommandXboxController(1);
         controls = new Controls(driver, operator);
-    
+
         drivetrain = new Drivetrain();
         configureBindings();
     }
@@ -31,8 +37,11 @@ public class RobotContainer {
      * Configure XBox controller bindings
      */
     private void configureBindings() {
-        // Shoot when right trigger is pressed.
+        // OPERATOR
         operator.rightTrigger().onTrue(shooter.shoot());
+        // operator.a().onTrue(indexer.startIndexer(true));
+        operator.a().onTrue(intake.startIntake());
+        operator.leftBumper().onTrue(intake.runIntake(IntakeConfig.OUTTAKE_SPEED));
     }
 
     public Command getAutonomousCommand() {
