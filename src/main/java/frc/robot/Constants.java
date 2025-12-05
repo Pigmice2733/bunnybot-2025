@@ -26,8 +26,8 @@ public final class Constants {
     public static final double AXIS_THRESHOLD = 0.1d;
 
     public static final class CANConfig {
-        public static final int INDEXER_PORT = 1;
-        public static final int INTAKE_PORT = 2;
+        public static final int INTAKE_INDEXER_PORT = 1;
+        public static final int SHOOTER_PORT = 2;
     }
 
     public static final class DrivetrainConfig {

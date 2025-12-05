@@ -12,15 +12,12 @@ import frc.robot.Constants.CANConfig;
 import frc.robot.Constants.IndexerConfig;
 
 public class Indexer {
-    private SparkMax upMotor;
-    private SparkMax lowMotor;
+    private SparkMax motor;
 
     public Indexer() {
-        upMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
-        lowMotor = new SparkMax(CANConfig.INDEXER_PORT, MotorType.kBrushless);
+        motor = new SparkMax(CANConfig.INTAKE_INDEXER_PORT, MotorType.kBrushless);
         SparkMaxConfig indexerConfig = new SparkMaxConfig();
-        upMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        lowMotor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor.configure(indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     /**
@@ -31,22 +28,14 @@ public class Indexer {
     public void setIndexerSpeed(double pct) {
         if (Math.abs(pct) > 1)
             return;
-        upMotor.set(pct);
-        lowMotor.set(pct);
+        motor.set(pct);
     }
 
     /**
      * @return Speed of the upper motor of the indexer
      */
-    public double getUpperIndexerSpeed() {
-        return upMotor.get();
-    }
-
-    /**
-     * @return Speed of the lower motor of the indexer
-     */
-    public double getLowerIndexerSpeed() {
-        return lowMotor.get();
+    public double getIndexerSpeed() {
+        return motor.get();
     }
 
     /**

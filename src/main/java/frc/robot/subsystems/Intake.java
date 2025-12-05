@@ -14,7 +14,7 @@ public class Intake {
     private SparkMax motor;
 
     public Intake() {
-        motor = new SparkMax(CANConfig.INTAKE_PORT, MotorType.kBrushless);
+        motor = new SparkMax(CANConfig.INTAKE_INDEXER_PORT, MotorType.kBrushless);
         SparkMaxConfig intakeConfig = new SparkMaxConfig();
         motor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }

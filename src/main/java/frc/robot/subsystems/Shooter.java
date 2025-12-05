@@ -5,14 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.CANConfig;
 import frc.robot.commands.Shoot;
 
-@SuppressWarnings("unused")
 public class Shooter extends SubsystemBase {
   SparkMax motor;
   // PIDController motorController = Constants.ShooterConfig.MOTOR_CONTROLLER;
@@ -20,7 +20,7 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new shooter. */
   public Shooter() {
-    motor = new SparkMax(Constants.ShooterConfig.MOTOR_ID, Constants.ShooterConfig.MOTOR_TYPE);
+    motor = new SparkMax(CANConfig.SHOOTER_PORT, MotorType.kBrushless);
   }
 
   /**
@@ -62,12 +62,5 @@ public class Shooter extends SubsystemBase {
     if (motor.get() != targetSpeed) {
       motor.set(targetSpeed);
     }
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-    throw new RuntimeException(
-        "A... simulation? .... ARE YOU SAYING THAT THIS WORLD ISN\"T REAL!! ... i ii I'm not real?");
   }
 }

@@ -39,8 +39,8 @@ public class RobotContainer {
     private void configureBindings() {
         // OPERATOR
         operator.rightTrigger().onTrue(shooter.shoot());
-        // operator.a().onTrue(indexer.startIndexer(true));
-        operator.a().onTrue(intake.startIntake());
+        operator.a().onTrue(indexer.startIndexer(true));
+        operator.rightBumper().onTrue(intake.runIntake(IntakeConfig.INTAKE_SPEED));
         operator.leftBumper().onTrue(intake.runIntake(IntakeConfig.OUTTAKE_SPEED));
     }
 
