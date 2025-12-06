@@ -7,8 +7,8 @@ import frc.robot.subsystems.Shooter;
 public class Shoot extends SequentialCommandGroup {
   public Shoot(Shooter shoot, double sec, double spd) {
     addCommands(
-        shoot.setMotor(spd),
+        shoot.setShooterSpeed(spd),
         new WaitCommand(sec),
-        shoot.stopMotor());
+        shoot.stopShooter());
   }
 }

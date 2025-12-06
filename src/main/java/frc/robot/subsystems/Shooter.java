@@ -9,9 +9,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.CANConfig;
-import frc.robot.commands.Shoot;
 
 public class Shooter extends SubsystemBase {
   SparkMax motor;
@@ -26,32 +24,41 @@ public class Shooter extends SubsystemBase {
   /**
    * Sets the speed of the shooter motor
    *
-   * @param spd Speed value between 1 and -1
+   * @param spd Speed of the motor, between -1.0 and 1.0
    */
-  public Command setMotor(double spd) {
+  public Command setShooterSpeed(double spd) {
     return Commands.runOnce(() -> targetSpeed = Math.max(-1, Math.min(1, spd)));
   }
 
-  public Command stopMotor() {
-    return runOnce(() -> targetSpeed = 0);
-  }
-
-  public Command shoot() {
-    return setMotor(1.0);
-  }
-
-  public Command shoot(double spd) {
-    return new Shoot(this, Constants.ShooterConfig.SHOOT_WAIT_TIME, spd);
+  /**
+   * @return Speed of the shooter motor
+   */
+  public double getShooterSpeed() {
+    return motor.get();
   }
 
   /**
-   * An example method querying a boolean state of the subsystem (for example, a
-   * digital sensor).
-   *
-   * @return value of some boolean subsystem state, such as a digital sensor.
+   * Sets the speed of the shooter motor to a specified speed
+   * 
+   * @param spd Speed of the motor, between -1.0 and 1.0
+   */
+  public Command startShooter(double spd) {
+    return Commands.runOnce(() -> setShooterSpeed(spd));
+  }
+
+  /**
+   * Sets the speed of the shooter motor to 0
+   */
+  public Command stopShooter() {
+    return runOnce(() -> targetSpeed = 0);
+  }
+
+  /**
+   * Checks whether the shooter is supposed to be stopped
+   * 
+   * @return Boolean value where true means the shooter is supposed to be stopeed
    */
   public boolean isTargetSpeedStop() {
-    // Query some boolean state, such as a digital sensor.
     return targetSpeed == 0;
   }
 

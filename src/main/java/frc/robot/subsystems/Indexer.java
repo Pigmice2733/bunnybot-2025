@@ -9,7 +9,6 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.CANConfig;
-import frc.robot.Constants.IndexerConfig;
 
 public class Indexer {
     private SparkMax motor;
@@ -32,7 +31,7 @@ public class Indexer {
     }
 
     /**
-     * @return Speed of the upper motor of the indexer
+     * @return Speed of the indexer motor
      */
     public double getIndexerSpeed() {
         return motor.get();
@@ -45,9 +44,8 @@ public class Indexer {
      * @param fwd Boolean value of whether the motors are running forwards or
      *            backwards
      */
-    public Command startIndexer(boolean fwd) {
-        return Commands
-                .runOnce(() -> setIndexerSpeed(fwd ? IndexerConfig.INDEXER_SPEED : -IndexerConfig.INDEXER_SPEED));
+    public Command startIndexer(double spd) {
+        return Commands.runOnce(() -> setIndexerSpeed(spd));
     }
 
     /**

@@ -50,6 +50,7 @@ public final class Constants {
         public static final MotorType MOTOR_TYPE = MotorType.kBrushed;
         public static final PIDController MOTOR_CONTROLLER = new PIDController(1, 1, 1);
         public static final double SHOOT_WAIT_TIME = 3.0d;
+        public static final double SHOOTER_SPEED = 0.5d;
     }
 
     public static void sendNumberToElastic(String name, double num, double places) {

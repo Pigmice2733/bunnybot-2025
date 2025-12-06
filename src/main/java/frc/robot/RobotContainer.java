@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import frc.robot.Constants.IndexerConfig;
 import frc.robot.Constants.IntakeConfig;
+import frc.robot.Constants.ShooterConfig;
+import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 @SuppressWarnings("unused")
@@ -38,10 +42,10 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // OPERATOR
-        operator.rightTrigger().onTrue(shooter.shoot());
-        operator.a().onTrue(indexer.startIndexer(true));
-        operator.rightBumper().onTrue(intake.runIntake(IntakeConfig.INTAKE_SPEED));
-        operator.leftBumper().onTrue(intake.runIntake(IntakeConfig.OUTTAKE_SPEED));
+        operator.rightTrigger().onTrue(shooter.startShooter(ShooterConfig.SHOOTER_SPEED));
+        operator.a().onTrue(indexer.startIndexer(IndexerConfig.INDEXER_SPEED));
+        operator.rightBumper().onTrue(intake.startIntake(IntakeConfig.INTAKE_SPEED));
+        operator.leftBumper().onTrue(intake.startIntake(IntakeConfig.OUTTAKE_SPEED));
     }
 
     public Command getAutonomousCommand() {
