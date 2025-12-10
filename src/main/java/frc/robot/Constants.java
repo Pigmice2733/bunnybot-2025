@@ -36,10 +36,6 @@ public final class Constants {
         public static final double SLOWMODE_FACTOR = 0.2d;
     }
 
-    public static final class IndexerConfig {
-        public static final double INDEXER_SPEED = 0.25d;
-    }
-
     public static final class IntakeConfig {
         public static final double INTAKE_SPEED = 0.25d;
         public static final double OUTTAKE_SPEED = -0.25d;
