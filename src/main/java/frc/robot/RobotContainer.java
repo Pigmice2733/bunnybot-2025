@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.IntakeConfig;
 import frc.robot.Constants.ShooterConfig;
+import frc.robot.commands.DriveJoysticks;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -18,12 +19,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
     private final Drivetrain drivetrain;
 
-    private final Shooter shooter = new Shooter();
-    private final Intake intake = new Intake();
+    // private final Shooter shooter = new Shooter();
+    // private final Intake intake = new Intake();
 
     private final CommandXboxController driver;
     private final CommandXboxController operator;
     private final Controls controls;
+
+    private boolean robotOriented;
 
     public RobotContainer() {
         driver = new CommandXboxController(0);
@@ -31,7 +34,20 @@ public class RobotContainer {
         controls = new Controls(driver, operator);
 
         drivetrain = new Drivetrain();
+
+        robotOriented = false;
+
         configureBindings();
+        configureDefaultCommands();
+    }
+
+    public void configureDefaultCommands() {
+        drivetrain.setDefaultCommand(new DriveJoysticks(
+                drivetrain,
+                controls::getDriveSpeedX,
+                controls::getDriveSpeedY,
+                controls::getTurnSpeed,
+                () -> robotOriented));
     }
 
     /**
@@ -39,9 +55,9 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // OPERATOR
-        operator.rightTrigger().onTrue(shooter.startShooter(ShooterConfig.SHOOTER_SPEED));
-        operator.rightBumper().onTrue(intake.startIntake(IntakeConfig.INTAKE_SPEED));
-        operator.leftBumper().onTrue(intake.startIntake(IntakeConfig.OUTTAKE_SPEED));
+        // operator.rightTrigger().onTrue(shooter.startShooter(ShooterConfig.SHOOTER_SPEED));
+        // operator.rightBumper().onTrue(intake.startIntake(IntakeConfig.INTAKE_SPEED));
+        // operator.leftBumper().onTrue(intake.startIntake(IntakeConfig.OUTTAKE_SPEED));
     }
 
     public Command getAutonomousCommand() {
