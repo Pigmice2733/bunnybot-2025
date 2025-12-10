@@ -4,12 +4,10 @@
 
 package frc.robot;
 
-import frc.robot.Constants.IndexerConfig;
 import frc.robot.Constants.IntakeConfig;
 import frc.robot.Constants.ShooterConfig;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +19,6 @@ public class RobotContainer {
     private final Drivetrain drivetrain;
 
     private final Shooter shooter = new Shooter();
-    private final Indexer indexer = new Indexer();
     private final Intake intake = new Intake();
 
     private final CommandXboxController driver;
