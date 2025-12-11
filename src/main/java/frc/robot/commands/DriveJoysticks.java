@@ -4,7 +4,6 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DrivetrainConfig;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveJoysticks extends Command {
@@ -17,12 +16,12 @@ public class DriveJoysticks extends Command {
     x = xSpeed;
     y = ySpeed;
     r = turnSpeed;
-
+    
     addRequirements(drivetrain);
   }
 
   @Override
   public void execute() {
-    dvt.driveRobot(x.getAsDouble(), y.getAsDouble(), r.getAsDouble());
+      dvt.driveRobot(x.getAsDouble(), y.getAsDouble(), -r.getAsDouble());
   }
 }

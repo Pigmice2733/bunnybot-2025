@@ -58,6 +58,8 @@ public class RobotContainer {
         // operator.rightTrigger().onTrue(shooter.startShooter(ShooterConfig.SHOOTER_SPEED));
         // operator.rightBumper().onTrue(intake.startIntake(IntakeConfig.INTAKE_SPEED));
         // operator.leftBumper().onTrue(intake.startIntake(IntakeConfig.OUTTAKE_SPEED));
+
+        driver.a().onTrue(drivetrain.reset());
     }
 
     public Command getAutonomousCommand() {
