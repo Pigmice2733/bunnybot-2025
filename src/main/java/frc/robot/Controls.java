@@ -14,13 +14,9 @@ public class Controls {
     /** If a value from a joystick is less than this, it will return 0. */
     private double threshold = Constants.AXIS_THRESHOLD;
 
-    private boolean slowmode;
-
     public Controls(CommandXboxController driver, CommandXboxController operator) {
         this.driver = driver;
         this.operator = operator;
-
-        setSlowmode(false);
     }
 
     /**
@@ -31,8 +27,7 @@ public class Controls {
     public double getDriveSpeedX() {
         double joystickY = MathUtil.applyDeadband(driver.getLeftY(), threshold);
 
-        return -1 * joystickY * DrivetrainConfig.MAX_DRIVE_SPEED
-                * (slowmode ? DrivetrainConfig.SLOWMODE_FACTOR * -1 : 1);
+        return joystickY * DrivetrainConfig.MAX_DRIVE_SPEED;
     }
 
     /**
@@ -43,8 +38,7 @@ public class Controls {
     public double getDriveSpeedY() {
         double joystickX = MathUtil.applyDeadband(driver.getLeftX(), threshold);
 
-        return -1 * joystickX * DrivetrainConfig.MAX_DRIVE_SPEED
-                * (slowmode ? DrivetrainConfig.SLOWMODE_FACTOR * -1 : 1);
+        return joystickX * DrivetrainConfig.MAX_DRIVE_SPEED;
     }
 
     /**
@@ -55,7 +49,7 @@ public class Controls {
     public double getTurnSpeed() {
         double joystickTurn = MathUtil.applyDeadband(driver.getRightX(), threshold);
 
-        return -1 * joystickTurn * DrivetrainConfig.MAX_TURN_SPEED * (slowmode ? DrivetrainConfig.SLOWMODE_FACTOR : 1);
+        return -1 * joystickTurn * DrivetrainConfig.MAX_TURN_SPEED;
     }
 
     /**
@@ -64,18 +58,5 @@ public class Controls {
      */
     public boolean getRobotOrientedMode() {
         return driver.rightBumper().getAsBoolean();
-    }
-
-    public Command toggleSlowmode() {
-        return new InstantCommand(() -> setSlowmode(!getSlowmode()));
-    }
-
-    public void setSlowmode(boolean slow) {
-        slowmode = slow;
-        SmartDashboard.putBoolean("Slowmode", slowmode);
-    }
-
-    public boolean getSlowmode() {
-        return slowmode;
     }
 }
