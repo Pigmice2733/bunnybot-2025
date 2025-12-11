@@ -22,6 +22,6 @@ public class DriveJoysticks extends Command {
 
   @Override
   public void execute() {
-      dvt.driveRobot(x.getAsDouble(), y.getAsDouble(), -r.getAsDouble());
+      dvt.driveField(x.getAsDouble(), y.getAsDouble(), -r.getAsDouble());
   }
 }
