@@ -31,8 +31,8 @@ public final class Constants {
     }
 
     public static final class DrivetrainConfig {
-        public static final double MAX_DRIVE_SPEED = 10.0d; // m/s
-        public static final double MAX_TURN_SPEED = 10.0d; // rad/s
+        public static final double MAX_DRIVE_SPEED = 1.0d; // m/s
+        public static final double MAX_TURN_SPEED = 1.0d; // rad/s
         public static final double SLOWMODE_FACTOR = 0.2d;
     }
 
