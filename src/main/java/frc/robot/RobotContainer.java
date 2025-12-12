@@ -21,9 +21,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
     private final Drivetrain drivetrain;
 
-    // private final Shooter shooter = new Shooter();
-    // private final Intake intake = new Intake();
-
     private final CommandXboxController driver;
     private final CommandXboxController operator;
     private final Controls controls;
@@ -36,7 +33,6 @@ public class RobotContainer {
         driver = new CommandXboxController(0);
         operator = new CommandXboxController(1);
         controls = new Controls(driver, operator);
-
         drivetrain = new Drivetrain();
 
         robotOriented = false;
@@ -57,15 +53,7 @@ public class RobotContainer {
                 () -> robotOriented));
     }
 
-    /**
-     * Configure XBox controller bindings
-     */
     private void configureBindings() {
-        // OPERATOR
-        // operator.rightTrigger().onTrue(shooter.startShooter(ShooterConfig.SHOOTER_SPEED));
-        // operator.rightBumper().onTrue(intake.startIntake(IntakeConfig.INTAKE_SPEED));
-        // operator.leftBumper().onTrue(intake.startIntake(IntakeConfig.OUTTAKE_SPEED));
-
         driver.a().onTrue(drivetrain.reset());
     }
 
