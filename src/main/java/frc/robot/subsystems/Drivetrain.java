@@ -237,10 +237,10 @@ public class Drivetrain extends SubsystemBase {
     this.pidConstants = pidConstants;
   }
 
-  public Command simpleAuto() {
+  public Command simpleAuto(double distance) {
     return Commands.sequence(
         driveCommand(DrivetrainConfig.MAX_DRIVE_SPEED, 0, 0),
-        Commands.waitUntil(() -> (robotPose.getX() > 2)),
+        Commands.waitUntil(() -> (robotPose.getX() > distance)),
         stop());
   }
 

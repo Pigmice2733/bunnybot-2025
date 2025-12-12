@@ -11,7 +11,9 @@ import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -28,6 +30,8 @@ public class RobotContainer {
 
     private boolean robotOriented;
 
+    private SendableChooser<Command> autoChooser;
+
     public RobotContainer() {
         driver = new CommandXboxController(0);
         operator = new CommandXboxController(1);
@@ -37,8 +41,11 @@ public class RobotContainer {
 
         robotOriented = false;
 
+        autoChooser = new SendableChooser<Command>();
+
         configureBindings();
         configureDefaultCommands();
+        buildAutoChooser();
     }
 
     public void configureDefaultCommands() {
@@ -62,7 +69,12 @@ public class RobotContainer {
         driver.a().onTrue(drivetrain.reset());
     }
 
+    private void buildAutoChooser() {
+        autoChooser.addOption("None", Commands.none());
+        autoChooser.addOption("Drive Forward", Commands.runOnce(() -> drivetrain.simpleAuto(2)));
+    }
+
     public Command getAutonomousCommand() {
-        return null;
+        return autoChooser.getSelected();
     }
 }
