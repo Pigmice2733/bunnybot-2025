@@ -18,7 +18,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -48,10 +47,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     // isRedAlliance();
-    Pose2d startingPose = redAlliance ? new Pose2d(new Translation2d(Meter.of(16),
-        Meter.of(4)),
-        Rotation2d.fromDegrees(180))
-        : new Pose2d(new Translation2d(Meter.of(1),
+    Pose2d startingPose = new Pose2d(new Translation2d(Meter.of(1),
             Meter.of(4)),
             Rotation2d.fromDegrees(0));
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
@@ -74,8 +70,8 @@ public class Drivetrain extends SubsystemBase {
 
     fieldWidget = new Field2d();
     PathPlannerLogging.setLogActivePathCallback((pose) -> fieldWidget.getObject("target pose").setPoses(pose));
-    constraints = new PathConstraints(swerve.getMaximumChassisVelocity(), 4.0,
-        swerve.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));
+    constraints = new PathConstraints(0.5d, 0.5d,
+        0.5d, 0.1d);
 
     Constants.sendNumberToElastic("Drivetrain P", 0, 3);
     Constants.sendNumberToElastic("Drivetrain I", 0, 3);
@@ -222,7 +218,11 @@ public class Drivetrain extends SubsystemBase {
    * driver's perspective.
    */
   public Command driveCommand(double driveSpeedX, double driveSpeedY, double turnSpeed) {
-    return Commands.run(() -> driveField(driveSpeedX, driveSpeedY, turnSpeed), this);
+    return this.run(() -> {
+        System.out.println("Driving. x speed " + driveSpeedX + ", y speed " +
+                driveSpeedY + ", turn speed " + turnSpeed);
+        driveRobot(driveSpeedX, driveSpeedY, turnSpeed); 
+    });
   }
 
   public Command stop() {
@@ -238,10 +238,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Command simpleAuto(double distance) {
-    return Commands.sequence(
-        driveCommand(DrivetrainConfig.MAX_DRIVE_SPEED, 0, 0),
-        Commands.waitUntil(() -> (robotPose.getX() > distance)),
-        stop());
+
+    System.out.println("####################### Simple auto running");
+
+    return driveCommand(DrivetrainConfig.MAX_DRIVE_SPEED/4.0, 0, 0).withTimeout(2);
   }
 
   public boolean isRedAlliance() {

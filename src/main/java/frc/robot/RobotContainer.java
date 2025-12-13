@@ -7,11 +7,12 @@ package frc.robot;
 import frc.robot.Constants.IntakeConfig;
 import frc.robot.Constants.ShooterConfig;
 import frc.robot.commands.DriveJoysticks;
-import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -51,7 +52,7 @@ public class RobotContainer {
                 controls::getDriveSpeedY,
                 controls::getTurnSpeed,
                 () -> robotOriented));
-    }
+ }
 
     private void configureBindings() {
         driver.a().onTrue(drivetrain.reset());
@@ -60,9 +61,19 @@ public class RobotContainer {
     private void buildAutoChooser() {
         autoChooser.addOption("None", Commands.none());
         autoChooser.addOption("Drive Forward", Commands.runOnce(() -> drivetrain.simpleAuto(2)));
+    
+        SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     public Command getAutonomousCommand() {
-        return autoChooser.getSelected();
+        System.err.println("RUNNING AUTONOMOUS COMMAND");
+        System.err.println(drivetrain.getPose().toString());
+
+        Commands.runOnce(() -> drivetrain.reset());
+        drivetrain.setUpAuto();
+
+        Pose2d target = new Pose2d(2.0d, 0.0d, new Rotation2d());
+        return drivetrain.driveToPose(target);
+        //return autoChooser.getSelected();
     }
 }

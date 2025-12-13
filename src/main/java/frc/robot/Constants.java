@@ -31,7 +31,7 @@ public final class Constants {
     }
 
     public static final class DrivetrainConfig {
-        public static final double MAX_DRIVE_SPEED = 2.5d; // m/s
+        public static final double MAX_DRIVE_SPEED = 6.25d; // m/s
         public static final double MAX_TURN_SPEED = 2.0d * Math.PI; // rad/s
     }
 
