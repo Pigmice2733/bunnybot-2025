@@ -31,8 +31,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.Constants;
 import frc.robot.Constants.*;
-import frc.robot.LimelightHelpers;
-import frc.robot.LimelightHelpers.PoseEstimate;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -48,10 +46,10 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     // isRedAlliance();
-    Pose2d startingPose = redAlliance ? new Pose2d(new Translation2d(Meter.of(16),
+    Pose2d startingPose = redAlliance ? new Pose2d(new Translation2d(Meter.of(54),
         Meter.of(4)),
         Rotation2d.fromDegrees(180))
-        : new Pose2d(new Translation2d(Meter.of(1),
+        : new Pose2d(new Translation2d(Meter.of(0),
             Meter.of(4)),
             Rotation2d.fromDegrees(0));
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
@@ -84,20 +82,9 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    updateVision();
-
     robotPose = getPose();
-    LimelightHelpers.SetRobotOrientation("", robotPose.getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
     updateEntries();
-  }
-
-  private void updateVision() {
-    if (!LimelightHelpers.getTV("")) {
-      return;
-    }
-    PoseEstimate botPos = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
-    swerve.addVisionMeasurement(botPos.pose, botPos.timestampSeconds);
   }
 
   /**

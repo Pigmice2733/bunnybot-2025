@@ -63,7 +63,7 @@ public class RobotContainer {
 
     private void buildAutoChooser() {
         autoChooser.addOption("None", Commands.none());
-        autoChooser.addOption("Drive Forward", new DrivePath(drivetrain, new Transform2d(-2, 0, new Rotation2d())));
+        autoChooser.addOption("Drive Forward", drivetrain.driveToPose(new Pose2d(27, 4, new Rotation2d())));
     }
 
     public Command getAutonomousCommand() {
