@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.IntakeConfig;
 import frc.robot.Constants.ShooterConfig;
 import frc.robot.commands.DriveJoysticks;
+import frc.robot.commands.DriveToPose;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -61,16 +62,11 @@ public class RobotContainer {
     private void buildAutoChooser() {
         autoChooser.addOption("None", Commands.none());
         autoChooser.addOption("Drive Forward",
-                drivetrain.driveToPose(new Pose2d(8, 4, drivetrain.getPose().getRotation())));
+                new DriveToPose(drivetrain, new Transform2d(2, 0, new Rotation2d(0))));
     }
 
     public Command getAutonomousCommand() {
-        System.err.println("RUNNING AUTONOMOUS COMMAND");
-        System.err.println(drivetrain.getPose().toString());
-
-        Pose2d target = new Pose2d(2.0d, 4.0d, drivetrain.getPose().getRotation());
-        return drivetrain.driveToPose(target);
-        // return autoChooser.getSelected();
+        return autoChooser.getSelected();
     }
 
     public void autoInit() {
