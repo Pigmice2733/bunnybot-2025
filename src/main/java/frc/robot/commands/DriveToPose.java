@@ -24,21 +24,25 @@ public class DriveToPose extends Command {
 
     @Override
     public void initialize() {
+        drivetrain.reset();
         currentPose = drivetrain.getPose();
         endPose = currentPose.transformBy(path);
 
         xPID.setSetpoint(endPose.getX());
         yPID.setSetpoint(endPose.getY());
         rPID.setSetpoint(endPose.getRotation().getRadians());
+
+        System.out.println("End Pose: " + endPose.getX());
     }
 
     @Override
     public void execute() {
         currentPose = drivetrain.getPose();
-        drivetrain.driveField(
-                xPID.calculate(currentPose.getX()),
-                yPID.calculate(currentPose.getY()),
-                rPID.calculate(currentPose.getRotation().getRadians()));
+        if (endPose.getX() > currentPose.getX()) {
+            drivetrain.driveRobot(-0.75, 0, 0);
+        } else {
+            drivetrain.driveRobot(0, 0, 0);
+        }
     }
 
     @Override
