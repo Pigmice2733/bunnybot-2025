@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.IntakeConfig;
-import frc.robot.Constants.ShooterConfig;
 import frc.robot.commands.DriveJoysticks;
 import frc.robot.commands.DriveToPose;
 import frc.robot.subsystems.Drivetrain;
